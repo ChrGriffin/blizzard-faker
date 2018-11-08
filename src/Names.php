@@ -2,8 +2,14 @@
 
 namespace ChrGriffin\BlizzardFaker;
 
-use Faker\{ Provider\Base, Generator };
-use ChrGriffin\BlizzardFaker\DataProviders\{ DataProviderInterface, NamesProvider };
+use Faker\{
+    Provider\Base,
+    Generator
+};
+use ChrGriffin\BlizzardFaker\DataProviders\{
+    DataProviderInterface,
+    NamesProvider
+};
 
 class Names extends Base
 {

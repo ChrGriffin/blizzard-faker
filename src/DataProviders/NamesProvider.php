@@ -15,7 +15,8 @@ class NamesProvider implements DataProviderInterface
      * @var array
      */
     protected $providers = [
-        'diablo' => Names\Diablo::class
+        'diablo' => Names\Diablo::class,
+        'starcraft' => Names\Starcraft::class
     ];
 
     /**
@@ -61,7 +62,7 @@ class NamesProvider implements DataProviderInterface
                 $names[] = $this->getDataFromProvider($providerClass);
             }
 
-            return array_merge(...$names);
+            return array_unique(array_merge(...$names));
         }
     }
 
