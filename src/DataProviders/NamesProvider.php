@@ -2,7 +2,7 @@
 
 namespace ChrGriffin\BlizzardFaker\DataProviders;
 
-class NamesProvider implements DataProviderInterface
+class NamesProvider extends DataProvider
 {
     /**
      * Class traits.
@@ -15,8 +15,9 @@ class NamesProvider implements DataProviderInterface
      * @var array
      */
     protected $providers = [
-        'diablo' => Names\Diablo::class,
-        'starcraft' => Names\Starcraft::class
+        'diablo'      => Diablo\Names::class,
+        'hearthstone' => Hearthstone\Names::class,
+        'starcraft'   => Starcraft\Name::class
     ];
 
     /**

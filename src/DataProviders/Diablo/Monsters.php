@@ -1,10 +1,12 @@
 <?php
 
-namespace ChrGriffin\BlizzardFaker\DataProviders\Names;
+namespace ChrGriffin\BlizzardFaker\DataProviders\Diablo;
 
-use ChrGriffin\BlizzardFaker\DataProviders\DataProviderInterface;
+use ChrGriffin\BlizzardFaker\DataProviders\{
+    DataProvider
+};
 
-class Diablo implements DataProviderInterface
+class Monsters extends DataProvider
 {
     /**
      * Diablo 2 monster prefixes.

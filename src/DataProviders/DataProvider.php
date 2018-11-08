@@ -2,7 +2,7 @@
 
 namespace ChrGriffin\BlizzardFaker\DataProviders;
 
-abstract class DataProvider
+abstract class DataProvider implements DataProviderInterface
 {
     /**
      * Provide all possible combinations of multiple arrays.

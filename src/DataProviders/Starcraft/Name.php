@@ -1,15 +1,14 @@
 <?php
 
-namespace ChrGriffin\BlizzardFaker\DataProviders\Names;
+namespace ChrGriffin\BlizzardFaker\DataProviders\Starcraft;
 
 use ChrGriffin\BlizzardFaker\DataProviders\{
     DataProvider,
-    DataProviderInterface,
     Traits\ConfiguresNames,
     Traits\ProvidesNames
 };
 
-class Starcraft extends DataProvider implements DataProviderInterface
+class Name extends DataProvider
 {
     /**
      * Class traits.
