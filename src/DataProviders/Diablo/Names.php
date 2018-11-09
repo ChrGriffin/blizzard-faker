@@ -4,7 +4,7 @@ namespace ChrGriffin\BlizzardFaker\DataProviders\Diablo;
 
 use ChrGriffin\BlizzardFaker\DataProviders\{
     DataProvider,
-    Traits\ConfiguresNames,
+    Traits\FiltersData,
     Traits\ProvidesNames
 };
 
@@ -13,7 +13,21 @@ class Names extends DataProvider
     /**
      * Class traits.
      */
-    use ConfiguresNames, ProvidesNames;
+    use FiltersData, ProvidesNames;
+
+    /**
+     * Whether to filter names by gender.
+     *
+     * @var bool
+     */
+    protected $filtersByGender = true;
+
+    /**
+     * Whether to filter names by type.
+     *
+     * @var bool
+     */
+    protected $filtersByType = true;
 
     /**
      * Names that can be provided.

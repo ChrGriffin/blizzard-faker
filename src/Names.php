@@ -93,11 +93,20 @@ class Names extends Base
         ?string $franchise = null,
         string $nameType = 'full'
     ) : string {
-        $names = $this->dataProvider
-            ->fromFranchise($franchise)
-            ->setGender($gender)
-            ->setNameType($nameType)
-            ->provide();
+
+        if($gender) {
+            $this->dataProvider->addFilter('gender', $gender);
+        }
+
+        if($franchise) {
+            $this->dataProvider->addFilter('franchise', $franchise);
+        }
+
+        if($nameType) {
+            $this->dataProvider->addFilter('name_type', $nameType);
+        }
+
+        $names = $this->dataProvider->provide();
 
         return self::randomElement($names);
     }

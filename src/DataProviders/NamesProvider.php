@@ -7,7 +7,7 @@ class NamesProvider extends DataProvider
     /**
      * Class traits.
      */
-    use Traits\ConfiguresNames;
+    use Traits\FiltersData;
 
     /**
      * Internal DataProviders.
@@ -17,35 +17,8 @@ class NamesProvider extends DataProvider
     protected $providers = [
         'diablo'      => Diablo\Names::class,
         'hearthstone' => Hearthstone\Names::class,
-        'starcraft'   => Starcraft\Name::class
+        'starcraft'   => Starcraft\Names::class
     ];
-
-    /**
-     * The currently configured franchise.
-     *
-     * @var null|string
-     */
-    private $franchise;
-
-    /**
-     * Set the franchise.
-     *
-     * @param null|string $franchise
-     * @return $this
-     */
-    public function fromFranchise(?string $franchise)
-    {
-        if(
-            !in_array($franchise, array_keys($this->providers))
-            && $franchise !== null
-        ) {
-            throw new \InvalidArgumentException();
-        }
-
-        $this->franchise = $franchise;
-
-        return $this;
-    }
 
     /**
      * Provide configured names.
@@ -54,17 +27,26 @@ class NamesProvider extends DataProvider
      */
     public function provide() : array
     {
-        if($this->franchise !== null) {
-            return $this->getDataFromProvider($this->providers[$this->franchise]);
+        if(!empty($this->filters['franchise'])) {
+            $providers = [];
+            foreach($this->filters['franchise'] as $franchise) {
+                if(!in_array($franchise, array_keys($this->providers))) {
+                    throw new \InvalidArgumentException($franchise . ' is not a valid franchise.');
+                }
+
+                $providers[] = $this->providers[$franchise];
+            }
         }
         else {
-            $names = [];
-            foreach($this->providers as $providerClass) {
-                $names[] = $this->getDataFromProvider($providerClass);
-            }
-
-            return array_unique(array_merge(...$names));
+            $providers = $this->providers;
         }
+
+        $names = [];
+        foreach($providers as $providerClass) {
+            $names[] = $this->getDataFromProvider($providerClass);
+        }
+
+        return array_unique(array_merge(...$names));
     }
 
     /**
@@ -75,9 +57,20 @@ class NamesProvider extends DataProvider
      */
     public function getDataFromProvider(string $providerClass) : array
     {
-        return (new $providerClass())
-            ->setGender($this->gender)
-            ->setNameType($this->nameType)
-            ->provide();
+        $provider = new $providerClass;
+
+        if(!empty($this->filters['gender'])) {
+            $provider->setFilter('gender', $this->filters['gender']);
+        }
+
+        if(!empty($this->filters['name_type'])) {
+            $provider->setFilter('name_type', $this->filters['name_type']);
+        }
+
+        if(!empty($this->filters['race'])) {
+            $provider->setFilter('race', $this->filters['race']);
+        }
+
+        return $provider->provide();
     }
 }
