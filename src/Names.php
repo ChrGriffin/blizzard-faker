@@ -6,19 +6,29 @@ use Faker\{
     Provider\Base,
     Generator
 };
-use ChrGriffin\BlizzardFaker\DataProviders\{
-    DataProviderInterface,
-    NamesProvider
-};
 
 class Names extends Base
 {
     /**
+     * Class traits.
+     */
+    use Traits\FiltersByFranchise;
+
+    /**
      * Data provider.
      *
-     * @var DataProviderInterface
+     * @var DataProviders\DataProviderInterface
      */
     protected $dataProvider;
+
+    /**
+     * Franchises that can provide names.
+     *
+     * @var array
+     */
+    protected $validFranchises = [
+        'diablo', 'starcraft', 'hearthstone'
+    ];
 
     /**
      * Names constructor.
@@ -29,7 +39,7 @@ class Names extends Base
     public function __construct(Generator $generator)
     {
         parent::__construct($generator);
-        $this->dataProvider = new NamesProvider;
+        $this->dataProvider = new DataProviders\NamesProvider;
     }
 
     /**
@@ -38,12 +48,16 @@ class Names extends Base
      * @param null|string $gender
      * @param null|string $franchise
      * @return string
+     * @throws \Exception
      */
     public function firstName(?string $gender = null, ?string $franchise = null) : string
     {
+        if($franchise) {
+            $this->addFranchise($franchise);
+        }
+
         return $this->name(
             $gender,
-            $franchise,
             'first'
         );
     }
@@ -54,12 +68,16 @@ class Names extends Base
      * @param null|string $gender
      * @param null|string $franchise
      * @return string
+     * @throws \Exception
      */
     public function lastName(?string $gender = null, ?string $franchise = null) : string
     {
+        if($franchise) {
+            $this->addFranchise($franchise);
+        }
+
         return $this->name(
             $gender,
-            $franchise,
             'last'
         );
     }
@@ -70,12 +88,16 @@ class Names extends Base
      * @param null|string $gender
      * @param null|string $franchise
      * @return string
+     * @throws \Exception
      */
     public function fullName(?string $gender = null, ?string $franchise = null) : string
     {
+        if($franchise) {
+            $this->addFranchise($franchise);
+        }
+
         return $this->name(
             $gender,
-            $franchise,
             'full'
         );
     }
@@ -84,22 +106,26 @@ class Names extends Base
      * Generate a random name.
      *
      * @param null|string $gender
-     * @param null|string $franchise
      * @param string $nameType
+     * @param array $franchises
      * @return string
      */
     public function name(
         ?string $gender = null,
-        ?string $franchise = null,
-        string $nameType = 'full'
+        string $nameType = 'full',
+        array $franchises = []
     ) : string {
+
+        $franchises = !empty($franchises)
+            ? $franchises
+            : $this->franchises;
 
         if($gender) {
             $this->dataProvider->addFilter('gender', $gender);
         }
 
-        if($franchise) {
-            $this->dataProvider->addFilter('franchise', $franchise);
+        if($franchises) {
+            $this->dataProvider->setFilter('franchise', $franchises);
         }
 
         if($nameType) {

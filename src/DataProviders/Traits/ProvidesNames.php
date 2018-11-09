@@ -47,20 +47,10 @@ trait ProvidesNames
             $this->filters['name_type'] = ['full'];
         }
 
-        // filter down the names
+        // filter down and build the names
         $names = $this->filterByGender($names);
-        $names = $this->filterByType($names);
         $names = $this->filterByRace($names);
-
-        // return the filtered names
-        switch($this->filters['name_type']) {
-            case 'first':
-            case 'last':
-                return array_keys($names);
-
-            default:
-                return $this->buildFullNames($names);
-        }
+        return $this->buildNames($names);
     }
 
     /**
@@ -135,34 +125,57 @@ trait ProvidesNames
     }
 
     /**
-     * Generate a powerset of all provided first and last names as full names.
+     * Build and return names based on our configuration.
      *
      * @param array $names
      * @return array
      */
-    protected function buildFullNames(array $names) : array
+    protected function buildNames(array $names) : array
     {
-        $fullNames = array_keys(array_filter($names, function ($name) {
-            return in_array('full_only', $name);
-        }));
+        if(!$this->filtersByType() || empty($this->filters['name_type'])) {
+            return array_keys($names);
+        }
 
-        $firstNames = array_keys(array_filter($names, function ($name) {
-            return in_array('first', $name);
-        }));
+        $returnNames = [];
 
-        $lastNames = array_keys(array_filter($names, function ($name) {
-            return in_array('last', $name);
-        }));
+        if(in_array('last', $this->filters['name_type'])) {
+            $returnNames[] = array_keys(array_filter($names, function ($name) {
+                return in_array('last', $name);
+            }));
+        }
 
-        $powerset = $this->powerset([$firstNames, $lastNames]);
+        if(in_array('first', $this->filters['name_type'])) {
+            $returnNames[] = array_keys(array_filter($names, function ($name) {
+                return in_array('first_only', $name);
+            }));
+        }
 
-        array_walk($powerset, function (&$name) {
-            $name = implode(' ', $name);
-        });
+        if(in_array('full', $this->filters['name_type'])) {
 
-        return array_unique(array_merge(
-            $powerset,
-            $fullNames
-        ));
+            $fullNames = array_keys(array_filter($names, function ($name) {
+                return in_array('full_only', $name);
+            }));
+
+            $firstNames = array_keys(array_filter($names, function ($name) {
+                return in_array('first', $name);
+            }));
+
+            $lastNames = array_keys(array_filter($names, function ($name) {
+                return in_array('last', $name);
+            }));
+
+            $powerset = $this->powerset([$firstNames, $lastNames]);
+
+            array_walk($powerset, function (&$name) {
+                $name = implode(' ', $name);
+            });
+
+            $returnNames[] = array_unique(array_merge(
+                $powerset,
+                $fullNames
+            ));
+        }
+
+        return array_merge(...$returnNames);
     }
 }

@@ -41,12 +41,8 @@ class NamesProvider extends DataProvider
             $providers = $this->providers;
         }
 
-        $names = [];
-        foreach($providers as $providerClass) {
-            $names[] = $this->getDataFromProvider($providerClass);
-        }
-
-        return array_unique(array_merge(...$names));
+        $provider = $providers[array_rand($providers)];
+        return array_unique($this->getDataFromProvider($provider));
     }
 
     /**
