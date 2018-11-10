@@ -27,7 +27,7 @@ class Names extends Base
      * @var array
      */
     protected $validFranchises = [
-        'diablo', 'starcraft', 'hearthstone'
+        'diablo', 'hearthstone', 'heroes_of_the_storm', 'starcraft', 'warcraft'
     ];
 
     /**
@@ -109,6 +109,7 @@ class Names extends Base
      * @param string $nameType
      * @param array $franchises
      * @return string
+     * @throws \Exception
      */
     public function name(
         ?string $gender = null,

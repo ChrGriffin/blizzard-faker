@@ -93,6 +93,7 @@ trait ProvidesNames
                     break;
                 case 'last':
                     $typeFilters[] = 'last';
+                    $typeFilters[] = 'last_only';
                     break;
                 default: // full
                     $typeFilters[] = 'first';
@@ -140,42 +141,81 @@ trait ProvidesNames
 
         if(in_array('last', $this->filters['name_type'])) {
             $returnNames[] = array_keys(array_filter($names, function ($name) {
-                return in_array('last', $name);
+                return count(array_intersect($name, ['last', 'last_only'])) > 0;
             }));
         }
 
         if(in_array('first', $this->filters['name_type'])) {
             $returnNames[] = array_keys(array_filter($names, function ($name) {
-                return in_array('first_only', $name);
+                return count(array_intersect($name, ['first', 'first_only'])) > 0;
             }));
         }
 
         if(in_array('full', $this->filters['name_type'])) {
 
-            $fullNames = array_keys(array_filter($names, function ($name) {
+            // add names that are already full names directly to the return array
+            $returnNames[] = array_keys(array_filter($names, function ($name) {
                 return in_array('full_only', $name);
             }));
 
-            $firstNames = array_keys(array_filter($names, function ($name) {
-                return in_array('first', $name);
-            }));
-
-            $lastNames = array_keys(array_filter($names, function ($name) {
-                return in_array('last', $name);
-            }));
-
-            $powerset = $this->powerset([$firstNames, $lastNames]);
-
-            array_walk($powerset, function (&$name) {
-                $name = implode(' ', $name);
+            $singleNames = array_filter($names, function ($name) {
+                return count(array_intersect($name, ['first', 'last'])) > 0;
             });
 
-            $returnNames[] = array_unique(array_merge(
-                $powerset,
-                $fullNames
-            ));
+            if(!empty(static::$races)) {
+
+                $races = array_fill_keys(static::$races, []);
+                $namesWithoutRace = [];
+
+                foreach($singleNames as $name => $nameFilters) {
+                    $nameRaces = array_intersect($nameFilters, static::$races);
+
+                    if(!empty($nameRaces)) {
+                        foreach($nameRaces as $nameRace) {
+                            $races[$nameRace][$name] = $nameFilters;
+                        }
+                    }
+                    else {
+                        $namesWithoutRace[$name] = $nameFilters;
+                    }
+                }
+
+                foreach($races as $raceNames) {
+                    $returnNames[] = $this->combineNames($raceNames);
+                }
+
+                $returnNames[] = $this->combineNames($namesWithoutRace);
+            }
+            else {
+                $returnNames[] = $this->combineNames($singleNames);
+            }
         }
 
         return array_merge(...$returnNames);
+    }
+
+    /**
+     * Work through an array of first and last names, combining them.
+     *
+     * @param array $names
+     * @return mixed
+     */
+    protected function combineNames(array $names)
+    {
+        $firstNames = array_keys(array_filter($names, function ($name) {
+            return in_array('first', $name);
+        }));
+
+        $lastNames = array_keys(array_filter($names, function ($name) {
+            return in_array('last', $name);
+        }));
+
+        $powerset = $this->powerset([$firstNames, $lastNames]);
+
+        array_walk($powerset, function (&$name) {
+            $name = implode(' ', $name);
+        });
+
+        return $powerset;
     }
 }

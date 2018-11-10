@@ -15,15 +15,18 @@ class NamesProvider extends DataProvider
      * @var array
      */
     protected $providers = [
-        'diablo'      => Diablo\Names::class,
-        'hearthstone' => Hearthstone\Names::class,
-        'starcraft'   => Starcraft\Names::class
+        'diablo'              => Diablo\Names::class,
+        'hearthstone'         => Hearthstone\Names::class,
+        'heroes_of_the_storm' => HeroesOfTheStorm\Names::class,
+        'starcraft'           => Starcraft\Names::class,
+        'warcraft'            => Warcraft\Names::class
     ];
 
     /**
      * Provide configured names.
      *
      * @return array
+     * @throws \Exception
      */
     public function provide() : array
     {
@@ -41,8 +44,22 @@ class NamesProvider extends DataProvider
             $providers = $this->providers;
         }
 
-        $provider = $providers[array_rand($providers)];
-        return array_unique($this->getDataFromProvider($provider));
+        $names = [];
+        while(empty($names) && !empty($providers)) {
+
+            $randomIndex = array_rand($providers);
+            $names = array_unique($this->getDataFromProvider(
+                $providers[$randomIndex]
+            ));
+
+            unset($providers[$randomIndex]);
+        }
+
+        if(empty($names)) {
+            throw new \Exception('Could not find name. This is likely due to an overly specific query.');
+        }
+
+        return $names;
     }
 
     /**
