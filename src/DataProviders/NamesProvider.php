@@ -20,11 +20,26 @@ class NamesProvider extends DataProvider
      * @var array
      */
     protected $providers = [
-        'diablo'              => Diablo\Names::class,
-        'hearthstone'         => Hearthstone\Names::class,
-        'heroes_of_the_storm' => HeroesOfTheStorm\Names::class,
-        'starcraft'           => Starcraft\Names::class,
-        'warcraft'            => Warcraft\Names::class
+        'diablo'              => [
+            'class'  => Diablo\Names::class,
+            'weight' => 26
+        ],
+        'hearthstone'         => [
+            'class'  => Hearthstone\Names::class,
+            'weight' => 2
+        ],
+        'heroes_of_the_storm' => [
+            'class'  => HeroesOfTheStorm\Names::class,
+            'weight' => 2
+        ],
+        'starcraft'           => [
+            'class'  => Starcraft\Names::class,
+            'weight' => 26
+        ],
+        'warcraft'            => [
+            'class'  => Warcraft\Names::class,
+            'weight' => 44,
+        ]
     ];
 
     /**

@@ -15,9 +15,12 @@ trait GetsDataFromProviders
         $data = [];
         while(empty($data) && !empty($providers)) {
 
-            $randomIndex = array_rand($providers);
+            $randomIndex = $this->weightedRandom(array_map(function ($provider) use ($providers) {
+                return $provider['weight'] ?? 100 / count($providers);
+            }, $providers));
+
             $data = array_unique($this->getDataFromProvider(
-                $providers[$randomIndex]
+                $providers[$randomIndex]['class']
             ));
 
             unset($providers[$randomIndex]);

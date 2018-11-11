@@ -17,21 +17,54 @@ class Names extends DataProvider
      */
     use FiltersData, GetsDataFromProviders;
 
+    /**
+     * Internal DataProviders.
+     *
+     * @var array
+     */
     protected $providers = [
-        'human'     => Names\Human::class,
-        'dwarf'     => Names\Dwarf::class,
-        'night_elf' => Names\NightElf::class,
-        'gnome'     => Names\Gnome::class,
-        'draenei'   => Names\Draenei::class,
-        'worgen'    => Names\Worgen::class,
-        'orc'       => Names\Orc::class,
-        'forsaken'  => Names\Forsaken::class,
-        'undead'    => Names\Forsaken::class,
-        'troll'     => Names\Troll::class,
-        'tauren'    => Names\Tauren::class,
-        'blood_elf' => Names\BloodElf::class,
-        'goblin'    => Names\Goblin::class,
-        'pandaren'  => Names\Pandaren::class
+        'human'     => [
+            'class' => Names\Human::class
+        ],
+        'dwarf'     => [
+            'class' => Names\Dwarf::class
+        ],
+        'night_elf' => [
+            'class' => Names\NightElf::class
+        ],
+        'gnome'     => [
+            'class' => Names\Gnome::class
+        ],
+        'draenei'   => [
+            'class' => Names\Draenei::class
+        ],
+        'worgen'    => [
+            'class' => Names\Worgen::class
+        ],
+        'orc'       => [
+            'class' => Names\Orc::class
+        ],
+        'forsaken'  => [
+            'class' => Names\Forsaken::class
+        ],
+        'undead'    => [
+            'class' => Names\Forsaken::class
+        ],
+        'troll'     => [
+            'class' => Names\Troll::class
+        ],
+        'tauren'    => [
+            'class' => Names\Tauren::class
+        ],
+        'blood_elf' => [
+            'class' => Names\BloodElf::class
+        ],
+        'goblin'    => [
+            'class' => Names\Goblin::class
+        ],
+        'pandaren'  => [
+            'class' => Names\Pandaren::class
+        ],
     ];
 
     /**
