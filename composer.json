@@ -1,0 +1,24 @@
+{
+    "name": "chrgriffin/blizzard-faker",
+    "description": "PHP Faker providers for Blizzard games.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Christian Griffin",
+            "email": "christian.griffin@live.com"
+        }
+    ],
+    "require": {
+        "fzaninotto/faker": "^1.6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "ChrGriffin\\BlizzardFaker\\": "src",
+            "ChrGriffin\\BlizzardFaker\\Tests\\": "tests"
+        }
+    }
+}

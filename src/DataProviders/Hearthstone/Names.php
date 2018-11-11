@@ -16,25 +16,23 @@ class Names extends DataProvider
     use FiltersData, ProvidesNames;
 
     /**
-     * Whether to filter names by gender.
+     * The races which have names represented in the data set.
      *
-     * @var bool
+     * @var array
      */
-    protected $filtersByGender = true;
-
-    /**
-     * Whether to filter names by type.
-     *
-     * @var bool
-     */
-    protected $filtersByType = true;
-
-    /**
-     * Whether to filter names by race.
-     *
-     * @var bool
-     */
-    protected $filtersByRace = true;
+    protected static $races = [
+        'blood_elf',
+        'demon',
+        'dwarf',
+        'forsaken',
+        'gnome',
+        'high_elf',
+        'human',
+        'murloc',
+        'night_elf',
+        'orc',
+        'troll',
+    ];
 
     /**
      * Names that can be provided.

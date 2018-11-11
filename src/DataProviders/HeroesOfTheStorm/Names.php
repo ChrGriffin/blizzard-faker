@@ -26,6 +26,7 @@ class Names extends DataProvider
         'draenei',
         'dragon',
         'dwarf',
+        'elemental',
         'human',
         'murloc',
         'ogre',
