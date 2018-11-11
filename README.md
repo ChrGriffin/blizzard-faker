@@ -60,17 +60,17 @@ $name = $faker
 
 #### Available Methods and Arguments
 
-* `firstName()`
+* `blizzardNames() : ChrGriffin\BlizzardFaker\Names` _(prevents conflict with other providers)_
+* `firstName() : string`
     * `$gender`: 'male', 'female', or `null` (any)
     * `$franchise`: a camelcased string of a valid franchise, or `null` (any)
-* `lastName()`
+* `lastName() : string`
     * `$gender`: 'male', 'female', or `null` (any)
     * `$franchise`: a camelcased string of a valid franchise, or `null` (any)
-* `fullName()`
+* `fullName() : string`
     * `$gender`: 'male', 'female', or `null` (any)
     * `$franchise`: a camelcased string of a valid franchise, or `null` (any)
-* `name()`
+* `name() : string`
     * `$type`: 'first', 'last', 'full', or `null` ('full')
     * `$gender`: 'male', 'female', or `null` (any)
     * `$franchise`: a camelcased string of a valid franchise, or `null` (any)
-* `blizzardNames()` _(returns the provider directly to prevent conflict with other providers)_
