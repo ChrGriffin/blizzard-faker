@@ -73,3 +73,4 @@ $name = $faker
     * `$type`: 'first', 'last', 'full', or `null` ('full')
     * `$gender`: 'male', 'female', or `null` (any)
     * `$franchise`: a camelcased string of a valid franchise, or `null` (any)
+* `blizzardNames()` _(returns the provider directly to prevent conflict with other providers)_
