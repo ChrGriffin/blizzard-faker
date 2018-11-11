@@ -7,9 +7,15 @@ use Faker\{
     Factory,
     Generator
 };
+use ChrGriffin\BlizzardFaker\Traits\GeneratesPowersets;
 
 abstract class TestCase extends PHPUnit
 {
+    /**
+     * Class traits.
+     */
+    use GeneratesPowersets;
+
     /**
      * @var Generator
      */

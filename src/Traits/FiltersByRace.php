@@ -277,6 +277,50 @@ trait FiltersByRace
     }
 
     /**
+     * Add Murloc to our configured races.
+     *
+     * @return FiltersByRace
+     * @throws \Exception
+     */
+    public function murloc()
+    {
+        return $this->addRace('murloc');
+    }
+
+    /**
+     * Add Elemental to our configured races.
+     *
+     * @return FiltersByRace
+     * @throws \Exception
+     */
+    public function elemental()
+    {
+        return $this->addRace('elemental');
+    }
+
+    /**
+     * Add Dragon to our configured races.
+     *
+     * @return FiltersByRace
+     * @throws \Exception
+     */
+    public function dragon()
+    {
+        return $this->addRace('dragon');
+    }
+
+    /**
+     * Add Ogre to our configured races.
+     *
+     * @return FiltersByRace
+     * @throws \Exception
+     */
+    public function ogre()
+    {
+        return $this->addRace('ogre');
+    }
+
+    /**
      * Add the given franchise to our configured franchises.
      *
      * @param string $race

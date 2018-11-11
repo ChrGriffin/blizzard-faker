@@ -3,7 +3,8 @@
 namespace ChrGriffin\BlizzardFaker\Tests;
 
 use ChrGriffin\BlizzardFaker\{
-    Names
+    Names,
+    Exceptions\InvalidRaceException
 };
 
 class NamesTest extends TestCase
@@ -19,221 +20,123 @@ class NamesTest extends TestCase
         $this->faker->addProvider(new Names($this->faker));
     }
 
-    public function providesRaceAndFranchise()
+    /**
+     * Provide an array of valid franchise + race + name types to test.
+     *
+     * @return array
+     */
+    public function provideValidRaceAndFranchiseAndNameType()
+    {
+        $franchises = [
+            'diablo'           => [
+                'angel'    => ['full', 'first'],
+                'demon'    => ['full', 'first'],
+                'human'    => ['full', 'first', 'last'],
+                'nephalem' => ['full', 'first'],
+            ],
+            'hearthstone'      => [
+                'bloodElf' => ['full', 'first', 'last'],
+                'demon'    => ['full', 'first'],
+                'dwarf'    => ['full', 'first', 'last'],
+                'gnome'    => ['full', 'first', 'last'],
+                'highElf'  => ['full', 'first', 'last'],
+                'human'    => ['full', 'first', 'last'],
+                'murloc'   => ['full', 'first'],
+                'orc'      => ['full', 'first', 'last'],
+                'troll'    => ['full', 'first'],
+            ],
+            'heroesOfTheStorm' => [
+                'angel'      => ['first'],
+                'bloodElf'   => ['first'],
+                'draenei'    => ['first'],
+                'dragon'     => ['first'],
+                'dwarf'      => ['first'],
+                'elemental'  => ['first'],
+                'human'      => ['full', 'first', 'last'],
+                'murloc'     => ['first'],
+                'ogre'       => ['first'],
+                'orc'        => ['first'],
+                'pandaren'   => ['first'],
+                'primalZerg' => ['first'],
+                'protoss'    => ['first'],
+                'tauren'     => ['full', 'first'],
+                'terran'     => ['full', 'first', 'last'],
+                'undead'     => ['first'],
+                'zerg'       => ['first'],
+            ],
+            'starcraft'        => [
+                'primalZerg' => ['full', 'first'],
+                'protoss'    => ['full', 'first'],
+                'terran'     => ['full', 'first', 'last'],
+                'xelNaga'    => ['full', 'first', 'last'],
+                'zerg'       => ['full', 'first', 'last'],
+            ],
+            'warcraft'         => [
+                'bloodElf' => ['full', 'first', 'last'],
+                'draenei'  => ['full', 'first'],
+                'dwarf'    => ['full', 'first', 'last'],
+                'forsaken' => ['full', 'first', 'last'],
+                'gnome'    => ['full', 'first', 'last'],
+                'goblin'   => ['full', 'first', 'last'],
+                'human'    => ['full', 'first', 'last'],
+                'nightElf' => ['full', 'first', 'last'],
+                'orc'      => ['full', 'first', 'last'],
+                'pandaren' => ['full', 'first', 'last'],
+                'tauren'   => ['full', 'first', 'last'],
+                'troll'    => ['full', 'first'],
+                'undead'   => ['full', 'first', 'last'],
+                'worgen'   => ['full', 'first', 'last'],
+            ]
+        ];
+
+        $structured = [];
+        foreach($franchises as $franchise => $races) {
+            foreach($races as $race => $nameTypes) {
+                foreach($nameTypes as $nameType) {
+                    $structured[] = [
+                        'franchise' => $franchise,
+                        'race' => $race,
+                        'nameType' => $nameType
+                    ];
+                }
+            }
+        }
+
+        return $structured;
+    }
+
+    /**
+     * Provide an array of invalid franchise + race combos.
+     *
+     * @return array
+     */
+    public function provideInvalidRaceAndFranchise()
     {
         return [
-            // Diablo
-            'Diablo + Demon'                    => [
+            [
                 'franchise' => 'diablo',
-                'race'      => 'demon'
-            ],
-            'Diablo + Angel'                    => [
-                'franchise' => 'diablo',
-                'race'      => 'angel'
-            ],
-            'Diablo + Nephalem'                 => [
-                'franchise' => 'diablo',
-                'race'      => 'nephalem'
-            ],
-            'Diablo + Human'                    => [
-                'franchise' => 'diablo',
-                'race'      => 'human'
-            ],
-
-            // Hearthstone
-            'Hearthstone + Blood Elf'           => [
-                'franchise' => 'hearthstone',
-                'race'      => 'bloodElf'
-            ],
-            'Hearthstone + Demon'               => [
-                'franchise' => 'hearthstone',
-                'race'      => 'demon'
-            ],
-            'Hearthstone + Dwarf'               => [
-                'franchise' => 'hearthstone',
-                'race'      => 'dwarf'
-            ],
-            'Hearthstone + Forsaken'            => [
-                'franchise' => 'hearthstone',
-                'race'      => 'forsaken'
-            ],
-            'Hearthstone + gnome'               => [
-                'franchise' => 'hearthstone',
-                'race'      => 'gnome'
-            ],
-            'Hearthstone + High Elf'            => [
-                'franchise' => 'hearthstone',
-                'race'      => 'highElf'
-            ],
-            'Hearthstone + Human'               => [
-                'franchise' => 'hearthstone',
-                'race'      => 'human'
-            ],
-            'Hearthstone + Murloc'              => [
-                'franchise' => 'hearthstone',
-                'race'      => 'murloc'
-            ],
-            'Hearthstone + Night Elf'           => [
-                'franchise' => 'hearthstone',
-                'race'      => 'nightElf'
-            ],
-            'Hearthstone + Orc'                 => [
-                'franchise' => 'hearthstone',
                 'race'      => 'orc'
-            ],
-            'Hearthstone + Troll'               => [
-                'franchise' => 'hearthstone',
-                'race'      => 'troll'
-            ],
-
-            // Heroes of the Storm
-            'Heroes of the Storm + Angel'       => [
-                'franchise' => 'heroesOfTheStorm',
-                'race'      => 'angel'
-            ],
-            'Heroes of the Storm + Blood Elf'   => [
-                'franchise' => 'heroesOfTheStorm',
-                'race'      => 'bloodElf'
-            ],
-            'Heroes of the Storm + Draenei'     => [
-                'franchise' => 'heroesOfTheStorm',
-                'race'      => 'draenei'
-            ],
-            'Heroes of the Storm + Dragon'      => [
-                'franchise' => 'heroesOfTheStorm',
-                'race'      => 'dragon'
-            ],
-            'Heroes of the Storm + Dwarf'       => [
-                'franchise' => 'heroesOfTheStorm',
-                'race'      => 'dwarf'
-            ],
-            'Heroes of the Storm + Elemental'   => [
-                'franchise' => 'heroesOfTheStorm',
-                'race'      => 'elemental'
-            ],
-            'Heroes of the Storm + Human'       => [
-                'franchise' => 'heroesOfTheStorm',
-                'race'      => 'human'
-            ],
-            'Heroes of the Storm + Murloc'      => [
-                'franchise' => 'heroesOfTheStorm',
-                'race'      => 'murloc'
-            ],
-            'Heroes of the Storm + Ogre'        => [
-                'franchise' => 'heroesOfTheStorm',
-                'race'      => 'ogre'
-            ],
-            'Heroes of the Storm + Orc'         => [
-                'franchise' => 'heroesOfTheStorm',
-                'race'      => 'orc'
-            ],
-            'Heroes of the Storm + Pandaren'    => [
-                'franchise' => 'heroesOfTheStorm',
-                'race'      => 'pandaren'
-            ],
-            'Heroes of the Storm + Primal Zerg' => [
-                'franchise' => 'heroesOfTheStorm',
-                'race'      => 'primalZerg'
-            ],
-            'Heroes of the Storm + Protoss'     => [
-                'franchise' => 'heroesOfTheStorm',
-                'race'      => 'protoss'
-            ],
-            'Heroes of the Storm + Tauren'      => [
-                'franchise' => 'heroesOfTheStorm',
-                'race'      => 'tauren'
-            ],
-            'Heroes of the Storm + Terran'      => [
-                'franchise' => 'heroesOfTheStorm',
+            ], [
+                'franchise' => 'diablo',
                 'race'      => 'terran'
-            ],
-            'Heroes of the Storm + Undead'      => [
-                'franchise' => 'heroesOfTheStorm',
-                'race'      => 'undead'
-            ],
-            'Heroes of the Storm + Zerg'        => [
-                'franchise' => 'heroesOfTheStorm',
-                'race'      => 'zerg'
-            ],
-
-            // Starcraft
-            'Starcraft + Xel\'Naga'             => [
-                'franchise' => 'starcraft',
-                'race'      => 'xelNaga'
-            ],
-            'Starcraft + Terran'                => [
-                'franchise' => 'starcraft',
-                'race'      => 'terran'
-            ],
-            'Starcraft + Protoss'               => [
-                'franchise' => 'starcraft',
+            ], [
+                'franchise' => 'hearthstone',
+                'race'      => 'angel'
+            ], [
+                'franchise' => 'hearthstone',
                 'race'      => 'protoss'
-            ],
-            'Starcraft + Zerg'                  => [
+            ], [
                 'franchise' => 'starcraft',
-                'race'      => 'zerg'
-            ],
-            'Starcraft + Primal Zerg'           => [
+                'race'      => 'demon'
+            ], [
                 'franchise' => 'starcraft',
-                'race'      => 'primalZerg'
-            ],
-
-            // Warcraft
-            'Warcraft + Human'                  => [
-                'franchise' => 'warcraft',
-                'race'      => 'human'
-            ],
-            'Warcraft + Dwarf'                  => [
-                'franchise' => 'warcraft',
-                'race'      => 'dwarf'
-            ],
-            'Warcraft + Night Elf'              => [
-                'franchise' => 'warcraft',
-                'race'      => 'nightElf'
-            ],
-            'Warcraft + Gnome'                  => [
-                'franchise' => 'warcraft',
-                'race'      => 'gnome'
-            ],
-            'Warcraft + Draenei'                => [
-                'franchise' => 'warcraft',
-                'race'      => 'draenei'
-            ],
-            'Warcraft + Worgen'                 => [
-                'franchise' => 'warcraft',
-                'race'      => 'worgen'
-            ],
-            'Warcraft + Orc'                    => [
-                'franchise' => 'warcraft',
                 'race'      => 'orc'
-            ],
-            'Warcraft + Forsaken'               => [
+            ], [
                 'franchise' => 'warcraft',
-                'race'      => 'forsaken'
-            ],
-            'Warcraft + Undead'                 => [
+                'race'      => 'zerg'
+            ], [
                 'franchise' => 'warcraft',
-                'race'      => 'undead'
-            ],
-            'Warcraft + Troll'                  => [
-                'franchise' => 'warcraft',
-                'race'      => 'troll'
-            ],
-            'Warcraft + Tauren'                 => [
-                'franchise' => 'warcraft',
-                'race'      => 'tauren'
-            ],
-            'Warcraft + Blood Elf'              => [
-                'franchise' => 'warcraft',
-                'race'      => 'bloodElf'
-            ],
-            'Warcraft + Goblin'                 => [
-                'franchise' => 'warcraft',
-                'race'      => 'goblin'
-            ],
-            'Warcraft + Pandaren'               => [
-                'franchise' => 'warcraft',
-                'race'      => 'pandaren'
+                'race'      => 'angel'
             ]
         ];
     }
@@ -243,17 +146,45 @@ class NamesTest extends TestCase
      *
      * @param string $franchise,
      * @param string $race
+     * @param string $type
      * @return void
-     * @dataProvider providesRaceAndFranchise
+     * @dataProvider provideValidRaceAndFranchiseAndNameType
      */
-    public function testCanGetNamesFromValidFranchises(string $franchise, string $race)
+    public function testCanGetNamesFromValidFranchisesNameCombinations(string $franchise, string $race, string $type)
     {
         $name = $this->faker
             ->blizzardNames()
             ->{$franchise}()
             ->{$race}()
-            ->name();
+            ->{$type . 'Name'}();
 
         $this->assertTrue(is_string($name));
+    }
+
+    /**
+     * Test that invalid combinations of franchises and names throw exceptions.
+     *
+     * @param string $franchise
+     * @param string $race
+     * @dataProvider provideInvalidRaceAndFranchise
+     */
+    public function testInvalidFranchiseNameCombinationsThrowExceptions(string $franchise, string $race)
+    {
+        $exception = null;
+        try {
+            $this->faker
+                ->blizzardNames()
+                ->{$franchise}()
+                ->{$race}();
+        }
+        catch(\Exception $exception) {
+            // do nothing
+        }
+
+        $this->assertNotEmpty($exception);
+        $this->assertInstanceOf(
+            InvalidRaceException::class,
+            $exception
+        );
     }
 }

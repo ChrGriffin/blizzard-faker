@@ -32,11 +32,11 @@ class Names extends DataProvider
     protected static $names = [
         // Xel'Naga
         'Amon'                     => ['first_only', 'full_only', 'male', 'xel\'naga'],
-        'Duran'                    => ['first_only', 'male', 'xel\'naga'],
+        'Duran'                    => ['first_only', 'last', 'male', 'xel\'naga'],
         'Emil Narud'               => ['full_only', 'male', 'xel\'naga'],
         'Emil'                     => ['first_only', 'male', 'xel\'naga'],
         'Maar'                     => ['first_only', 'full_only', 'male', 'xel\'naga'],
-        'Narud'                    => ['first_only', 'male', 'xel\'naga'],
+        'Narud'                    => ['first_only', 'last', 'male', 'xel\'naga'],
         'Ouros'                    => ['first_only', 'full_only', 'male', 'xel\'naga'],
         'Samir Duran'              => ['full_only', 'male', 'xel\'naga'],
         'Samir'                    => ['first_only', 'male', 'xel\'naga'],
