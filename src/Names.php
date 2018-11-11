@@ -12,7 +12,7 @@ class Names extends Base
     /**
      * Class traits.
      */
-    use Traits\FiltersByFranchise;
+    use Traits\FiltersByFranchise, Traits\FiltersByRace;
 
     /**
      * Data provider.
@@ -31,6 +31,37 @@ class Names extends Base
     ];
 
     /**
+     * Races that can provide names.
+     *
+     * @var array
+     */
+    protected $validRaces = [
+        'angel'       => ['franchises' => ['diablo', 'heroes_of_the_storm']],
+        'blood_elf'   => ['franchises' => ['warcraft', 'hearthstone', 'heroes_of_the_storm']],
+        'demon'       => ['franchises' => ['diablo', 'hearthstone', 'heroes_of_the_storm', 'warcraft']],
+        'draenei'     => ['franchises' => ['warcraft', 'heroes_of_the_storm']],
+        'dwarf'       => ['franchises' => ['warcraft', 'hearthstone', 'heroes_of_the_storm']],
+        'forsaken'    => ['franchises' => ['warcraft', 'hearthstone', 'heroes_of_the_storm']],
+        'gnome'       => ['franchises' => ['warcraft', 'hearthstone']],
+        'goblin'      => ['franchises' => ['warcraft', 'hearthstone', 'heroes_of_the_storm']],
+        'high_elf'    => ['franchises' => ['warcraft', 'hearthstone', 'heroes_of_the_storm']],
+        'human'       => ['franchises' => ['diablo', 'hearthstone', 'heroes_of_the_storm', 'starcraft', 'warcraft']],
+        'nephalem'    => ['franchises' => ['diablo', 'heroes_of_the_storm']],
+        'night_elf'   => ['franchises' => ['warcraft', 'hearthstone', 'heroes_of_the_storm']],
+        'orc'         => ['franchises' => ['warcraft', 'hearthstone', 'heroes_of_the_storm']],
+        'pandaren'    => ['franchises' => ['warcraft']],
+        'primal_zerg' => ['franchises' => ['starcraft', 'heroes_of_the_storm']],
+        'protoss'     => ['franchises' => ['starcraft', 'heroes_of_the_storm']],
+        'tauren'      => ['franchises' => ['warcraft', 'heroes_of_the_storm']],
+        'terran'      => ['franchises' => ['starcraft', 'heroes_of_the_storm']],
+        'troll'       => ['franchises' => ['warcraft', 'hearthstone', 'heroes_of_the_storm']],
+        'undead'      => ['franchises' => ['warcraft', 'hearthstone', 'heroes_of_the_storm']],
+        'worgen'      => ['franchises' => ['warcraft', 'heroes_of_the_storm']],
+        'xel\'naga'   => ['franchises' => ['starcraft']],
+        'zerg'        => ['franchises' => ['starcraft', 'heroes_of_the_storm']],
+    ];
+
+    /**
      * Names constructor.
      *
      * @param Generator $generator
@@ -40,6 +71,16 @@ class Names extends Base
     {
         parent::__construct($generator);
         $this->dataProvider = new DataProviders\NamesProvider;
+    }
+
+    /**
+     * Return the Names provider.
+     *
+     * @return $this
+     */
+    public function blizzardNames()
+    {
+        return $this;
     }
 
     /**
@@ -108,29 +149,39 @@ class Names extends Base
      * @param null|string $gender
      * @param string $nameType
      * @param array $franchises
+     * @param array $races
      * @return string
      * @throws \Exception
      */
     public function name(
         ?string $gender = null,
         string $nameType = 'full',
-        array $franchises = []
+        array $franchises = [],
+        array $races = []
     ) : string {
 
         $franchises = !empty($franchises)
             ? $franchises
             : $this->franchises;
 
-        if($gender) {
-            $this->dataProvider->addFilter('gender', $gender);
-        }
+        $races = !empty($races)
+            ? $races
+            : $this->races;
 
         if($franchises) {
             $this->dataProvider->setFilter('franchise', $franchises);
         }
 
+        if($races) {
+            $this->dataProvider->setFilter('race', $races);
+        }
+
+        if($gender) {
+            $this->dataProvider->setFilter('gender', [$gender]);
+        }
+
         if($nameType) {
-            $this->dataProvider->addFilter('name_type', $nameType);
+            $this->dataProvider->setFilter('name_type', [$nameType]);
         }
 
         $names = $this->dataProvider->provide();

@@ -2,6 +2,8 @@
 
 namespace ChrGriffin\BlizzardFaker\Traits;
 
+use ChrGriffin\BlizzardFaker\Exceptions\InvalidFranchiseException;
+
 trait FiltersByFranchise
 {
     /**
@@ -97,13 +99,7 @@ trait FiltersByFranchise
     public function addFranchise(string $franchise)
     {
         if(!in_array($franchise, $this->getValidFranchises())) {
-            throw new \Exception(
-                str_replace(
-                    '_',
-                    ' ',
-                    ucwords($franchise)
-                ) . ' is not a valid franchise for this provider.'
-            );
+            throw new InvalidFranchiseException($franchise, ['provider' => self::class]);
         }
 
         $this->franchises[] = $franchise;

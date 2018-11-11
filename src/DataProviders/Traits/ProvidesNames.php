@@ -5,36 +5,6 @@ namespace ChrGriffin\BlizzardFaker\DataProviders\Traits;
 trait ProvidesNames
 {
     /**
-     * Whether to filter names by gender.
-     *
-     * @return bool
-     */
-    protected function filtersByGender()
-    {
-        return $this->filtersByGender ?? false;
-    }
-
-    /**
-     * Whether to filter names by type.
-     *
-     * @returns bool
-     */
-    protected function filtersByType()
-    {
-        return $this->filtersByType ?? false;
-    }
-
-    /**
-     * Whether to filter names by race.
-     *
-     * @return bool
-     */
-    protected function filtersByRace()
-    {
-        return $this->filtersByRace ?? false;
-    }
-
-    /**
      * Filter the given names by the configured settings.
      *
      * @param array $names
@@ -43,7 +13,7 @@ trait ProvidesNames
     protected function filterAndBuildNames(array $names) : array
     {
         // return full names if we have no filter set
-        if($this->filtersByType() && empty($this->filters['name_type'])) {
+        if(empty($this->filters['name_type'])) {
             $this->filters['name_type'] = ['full'];
         }
 
@@ -61,7 +31,7 @@ trait ProvidesNames
      */
     protected function filterByGender(array $names) : array
     {
-        if(!$this->filtersByGender() || empty($this->filters['gender'])) {
+        if(empty($this->filters['gender'])) {
             return $names;
         }
 
@@ -80,10 +50,6 @@ trait ProvidesNames
      */
     protected function filterByType(array $names) : array
     {
-        if(!$this->filtersByType() || empty($this->filters['name_type'])) {
-            return $names;
-        }
-
         $typeFilters = [];
         foreach($this->filters['name_type'] as $type) {
             switch($type) {
@@ -116,7 +82,7 @@ trait ProvidesNames
      */
     protected function filterByRace(array $names) : array
     {
-        if(!$this->filtersByRace() || empty($this->filters['race'])) {
+        if(empty($this->filters['race'])) {
             return $names;
         }
 
@@ -133,7 +99,7 @@ trait ProvidesNames
      */
     protected function buildNames(array $names) : array
     {
-        if(!$this->filtersByType() || empty($this->filters['name_type'])) {
+        if(empty($this->filters['name_type'])) {
             return array_keys($names);
         }
 

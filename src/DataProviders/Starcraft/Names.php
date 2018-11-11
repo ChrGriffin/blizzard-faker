@@ -16,18 +16,13 @@ class Names extends DataProvider
     use FiltersData, ProvidesNames;
 
     /**
-     * Whether to filter names by gender.
+     * The races which have names represented in the data set.
      *
-     * @var bool
+     * @var array
      */
-    protected $filtersByGender = true;
-
-    /**
-     * Whether to filter names by type.
-     *
-     * @var bool
-     */
-    protected $filtersByType = true;
+    protected static $races = [
+        'xel\'naga', 'terran', 'protoss', 'zerg', 'primal_zerg'
+    ];
 
     /**
      * Names that can be provided.
@@ -38,54 +33,54 @@ class Names extends DataProvider
         // Xel'Naga
         'Amon'                     => ['first_only', 'full_only', 'male', 'xel\'naga'],
         'Duran'                    => ['first_only', 'male', 'xel\'naga'],
-        'Emil'                     => ['first_only', 'male', 'xel\'naga'],
         'Emil Narud'               => ['full_only', 'male', 'xel\'naga'],
+        'Emil'                     => ['first_only', 'male', 'xel\'naga'],
         'Maar'                     => ['first_only', 'full_only', 'male', 'xel\'naga'],
         'Narud'                    => ['first_only', 'male', 'xel\'naga'],
         'Ouros'                    => ['first_only', 'full_only', 'male', 'xel\'naga'],
-        'Samir'                    => ['first_only', 'male', 'xel\'naga'],
         'Samir Duran'              => ['full_only', 'male', 'xel\'naga'],
+        'Samir'                    => ['first_only', 'male', 'xel\'naga'],
 
         // Terrans
-        'Arcturus'                 => ['first_only', 'male', 'terran', 'human'],
         'Arcturus Mengsk'          => ['full_only', 'male', 'terran', 'human'],
-        'Ariel'                    => ['first_only', 'female', 'terran', 'human'],
+        'Arcturus'                 => ['first_only', 'male', 'terran', 'human'],
         'Ariel Hansen'             => ['full_only', 'female', 'terran', 'human'],
-        'Edmund'                   => ['first_only', 'male', 'terran', 'human'],
+        'Ariel'                    => ['first_only', 'female', 'terran', 'human'],
         'Edmund Duke'              => ['full_only', 'male', 'terran', 'human'],
-        'Egon'                     => ['first_only', 'male', 'terran', 'human'],
+        'Edmund'                   => ['first_only', 'male', 'terran', 'human'],
         'Egon Stettman'            => ['full_only', 'male', 'terran', 'human'],
-        'Gabriel'                  => ['first_only', 'male', 'terran', 'human'],
+        'Egon'                     => ['first_only', 'male', 'terran', 'human'],
         'Gabriel Tosh'             => ['full_only', 'male', 'terran', 'human'],
+        'Gabriel'                  => ['first_only', 'male', 'terran', 'human'],
         'General Warfield'         => ['full_only', 'male', 'terran', 'human'],
-        'Gerard'                   => ['first_only', 'male', 'terran', 'human'],
         'Gerard DuGalle'           => ['full_only', 'male', 'terran', 'human'],
-        'Horace'                   => ['first_only', 'male', 'terran', 'human'],
+        'Gerard'                   => ['first_only', 'male', 'terran', 'human'],
         'Horace Warfield'          => ['full_only', 'male', 'terran', 'human'],
-        'James'                    => ['first_only', 'male', 'terran', 'human'],
+        'Horace'                   => ['first_only', 'male', 'terran', 'human'],
         'James Raynor'             => ['full_only', 'male', 'terran', 'human'],
-        'Jim'                      => ['first_only', 'male', 'terran', 'human'],
+        'James'                    => ['first_only', 'male', 'terran', 'human'],
         'Jim Raynor'               => ['full_only', 'male', 'terran', 'human'],
-        'Kate'                     => ['first_only', 'female', 'terran', 'human'],
+        'Jim'                      => ['first_only', 'male', 'terran', 'human'],
         'Kate Lockwell'            => ['full_only', 'female', 'terran', 'human'],
-        'Matt'                     => ['first_only', 'male', 'terran', 'human'],
-        'Matthew'                  => ['first_only', 'male', 'terran', 'human'],
+        'Kate'                     => ['first_only', 'female', 'terran', 'human'],
         'Matt Horner'              => ['full_only', 'male', 'terran', 'human'],
+        'Matt'                     => ['first_only', 'male', 'terran', 'human'],
         'Matthew Horner'           => ['full_only', 'male', 'terran', 'human'],
-        'Michael'                  => ['first_only', 'male', 'terran', 'human'],
+        'Matthew'                  => ['first_only', 'male', 'terran', 'human'],
         'Michael Liberty'          => ['full_only', 'male', 'terran', 'human'],
-        'Mira'                     => ['first_only', 'female', 'terran', 'human'],
+        'Michael'                  => ['first_only', 'male', 'terran', 'human'],
         'Mira Han'                 => ['full_only', 'female', 'terran', 'human'],
         'Mira Horner'              => ['full_only', 'female', 'terran', 'human'],
-        'Nova'                     => ['first_only', 'female', 'terran', 'human'],
+        'Mira'                     => ['first_only', 'female', 'terran', 'human'],
         'Nova Terra'               => ['full_only', 'female', 'terran', 'human'],
-        'Terra'                    => ['first_only', 'female', 'terran', 'human'],
+        'Nova'                     => ['first_only', 'female', 'terran', 'human'],
         'Terra November'           => ['full_only', 'female', 'terran', 'human'],
+        'Terra'                    => ['first_only', 'female', 'terran', 'human'],
         'Tosh'                     => ['first_only', 'male', 'terran', 'human'],
-        'Tychus'                   => ['first_only', 'male', 'terran', 'human'],
         'Tychus Findlay'           => ['full_only', 'male', 'terran', 'human'],
-        'Valerian'                 => ['first_only', 'male', 'terran', 'human'],
+        'Tychus'                   => ['first_only', 'male', 'terran', 'human'],
         'Valerian Mengsk'          => ['full_only', 'male', 'terran', 'human'],
+        'Valerian'                 => ['first_only', 'male', 'terran', 'human'],
         'Warfield'                 => ['first_only', 'last', 'male', 'terran', 'human'],
 
         // Protoss
@@ -114,8 +109,8 @@ class Names extends DataProvider
         'Matriarch Vorazun'        => ['full_only', 'female', 'protoss'],
         'Mohandar'                 => ['first_only', 'full_only', 'male', 'protoss'],
         'Raszagal'                 => ['first_only', 'full_only', 'female', 'protoss'],
-        'Vorazun'                  => ['first_only', 'full_only', 'female', 'protoss'],
         'Ulrezaj'                  => ['first_only', 'full_only', 'male', 'protoss'],
+        'Vorazun'                  => ['first_only', 'full_only', 'female', 'protoss'],
         'Zeratul'                  => ['first_only', 'full_only', 'male', 'protoss'],
 
         // Tal'Darim
@@ -130,19 +125,20 @@ class Names extends DataProvider
 
         // Zerg
         'Abathur'                  => ['first_only', 'full_only', 'male', 'zerg'],
-        'Alexei'                   => ['first_only', 'male', 'zerg', 'terran', 'human'],
         'Alexei Stukov'            => ['full_only', 'male', 'zerg', 'terran', 'human'],
+        'Alexei'                   => ['first_only', 'male', 'zerg', 'terran', 'human'],
         'Daggoth'                  => ['first_only', 'full_only', 'male', 'zerg'],
         'Iszha'                    => ['first_only', 'full_only', 'female', 'zerg'],
+        'Kerrigan'                 => ['first_only', 'last_only', 'female', 'zerg', 'terran', 'human'],
         'Kilysa'                   => ['first_only', 'full_only', 'female', 'zerg'],
-        'Kerrigan'                 => ['first_only', 'female', 'zerg', 'terran', 'human'],
         'Nafash'                   => ['first_only', 'full_only', 'female', 'zerg'],
         'Naktul'                   => ['first_only', 'full_only', 'female', 'zerg'],
         'Niadra'                   => ['first_only', 'full_only', 'female', 'zerg'],
         'Rokarr'                   => ['first_only', 'full_only', 'female', 'zerg'],
         'Ryloth'                   => ['first_only', 'full_only', 'female', 'zerg'],
-        'Sarah'                    => ['first_only', 'female', 'zerg', 'terran', 'human'],
         'Sarah Kerrigan'           => ['full_only', 'female', 'zerg', 'terran', 'human'],
+        'Sarah'                    => ['first_only', 'female', 'zerg', 'terran', 'human'],
+        'Stukov'                   => ['first_only', 'last_only', 'male', 'terran', 'zerg', 'human'],
         'Zagara'                   => ['first_only', 'full_only', 'female', 'zerg'],
         'Zasz'                     => ['first_only', 'full_only', 'male', 'zerg'],
 
@@ -155,36 +151,36 @@ class Names extends DataProvider
         'Zurvan'                   => ['first_only', 'full_only', 'male', 'zerg', 'primal_zerg'],
 
         // Generic first names
-        'Abram'                    => ['first', 'male'],
-        'Andrew'                   => ['first', 'male'],
-        'Barris'                   => ['first', 'male'],
-        'Colin'                    => ['first', 'male'],
-        'Corbin'                   => ['first', 'male'],
-        'Dennis'                   => ['first', 'male'],
-        'Foster'                   => ['first', 'male'],
-        'Jeff'                     => ['first', 'male'],
-        'Jesse'                    => ['first', 'male', 'female'],
-        'Lena'                     => ['first', 'female'],
-        'Louise'                   => ['first', 'female'],
-        'Tanya'                    => ['first', 'female'],
-        'Talise'                   => ['first', 'female'],
-        'Zach'                     => ['first', 'male'],
+        'Abram'                    => ['first', 'male', 'terran', 'human'],
+        'Andrew'                   => ['first', 'male', 'terran', 'human'],
+        'Barris'                   => ['first', 'male', 'terran', 'human'],
+        'Colin'                    => ['first', 'male', 'terran', 'human'],
+        'Corbin'                   => ['first', 'male', 'terran', 'human'],
+        'Dennis'                   => ['first', 'male', 'terran', 'human'],
+        'Foster'                   => ['first', 'male', 'terran', 'human'],
+        'Jeff'                     => ['first', 'male', 'terran', 'human'],
+        'Jesse'                    => ['first', 'male', 'female', 'terran', 'human'],
+        'Lena'                     => ['first', 'female', 'terran', 'human'],
+        'Louise'                   => ['first', 'female', 'terran', 'human'],
+        'Talise'                   => ['first', 'female', 'terran', 'human'],
+        'Tanya'                    => ['first', 'female', 'terran', 'human'],
+        'Zach'                     => ['first', 'male', 'terran', 'human'],
 
         // Generic last names
-        'Ballenger'                => ['last'],
-        'Caulfield'                => ['last'],
-        'Cogan'                    => ['last'],
-        'Cray'                     => ['last'],
-        'Cristofer'                => ['last'],
-        'Cruikshank'               => ['last'],
-        'Duke'                     => ['last'],
-        'DuPre'                    => ['last'],
-        'Halkman'                  => ['last'],
-        'Mengsk'                   => ['last'],
-        'November'                 => ['last'],
-        'Oliver'                   => ['last'],
-        'Phash'                    => ['last'],
-        'Schmidt'                  => ['last']
+        'Ballenger'                => ['last', 'terran', 'human'],
+        'Caulfield'                => ['last', 'terran', 'human'],
+        'Cogan'                    => ['last', 'terran', 'human'],
+        'Cray'                     => ['last', 'terran', 'human'],
+        'Cristofer'                => ['last', 'terran', 'human'],
+        'Cruikshank'               => ['last', 'terran', 'human'],
+        'Duke'                     => ['last', 'terran', 'human'],
+        'DuPre'                    => ['last', 'terran', 'human'],
+        'Halkman'                  => ['last', 'terran', 'human'],
+        'Mengsk'                   => ['last', 'terran', 'human'],
+        'November'                 => ['last', 'terran', 'human'],
+        'Oliver'                   => ['last', 'terran', 'human'],
+        'Phash'                    => ['last', 'terran', 'human'],
+        'Schmidt'                  => ['last', 'terran', 'human'],
     ];
 
     /**

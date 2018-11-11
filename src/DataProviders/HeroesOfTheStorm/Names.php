@@ -16,25 +16,28 @@ class Names extends DataProvider
     use FiltersData, ProvidesNames;
 
     /**
-     * Whether to filter names by gender.
+     * The races which have names represented in the data set.
      *
-     * @var bool
+     * @var array
      */
-    protected $filtersByGender = true;
-
-    /**
-     * Whether to filter names by type.
-     *
-     * @var bool
-     */
-    protected $filtersByType = true;
-
-    /**
-     * Whether to filter names by race.
-     *
-     * @var bool
-     */
-    protected $filtersByRace = true;
+    protected static $races = [
+        'angel',
+        'blood_elf',
+        'draenei',
+        'dragon',
+        'dwarf',
+        'human',
+        'murloc',
+        'ogre',
+        'orc',
+        'pandaren',
+        'primal_zerg',
+        'protoss',
+        'tauren',
+        'terran',
+        'undead',
+        'zerg'
+    ];
 
     /**
      * Names that can be provided.
@@ -79,12 +82,12 @@ class Names extends DataProvider
         'Kerrigan'               => ['first_only', 'female', 'human', 'zerg'],
         'Kharazim'               => ['first_only', 'male', 'human'],
         'Leoric'                 => ['first_only', 'male', 'human', 'undead'],
-        'Li-Ming'                => ['first_only', 'female', 'human'],
         'Li Li'                  => ['first_only', 'female', 'pandaren'],
-        'Lunara'                 => ['first_only', 'female'],
+        'Li-Ming'                => ['first_only', 'female', 'human'],
         'Lucio'                  => ['first_only', 'male', 'human'],
-        'Mal\'ganis'             => ['first_only', 'male', 'demon'],
+        'Lunara'                 => ['first_only', 'female'],
         'Maiev'                  => ['first_only', 'female', 'night_elf'],
+        'Mal\'ganis'             => ['first_only', 'male', 'demon'],
         'Malfurion'              => ['first_only', 'male', 'night_elf'],
         'Malthael'               => ['first_only', 'male', 'angel'],
         'Medivh'                 => ['first_only', 'male', 'human'],
@@ -126,11 +129,11 @@ class Names extends DataProvider
         'The Lost Vikings'       => ['full_only', 'male', 'human'],
 
         // Hero last names
-        'Hammer'                 => ['last_only'],
-        'Morales'                => ['last_only'],
-        'Raynor'                 => ['last_only'],
-        'Stukov'                 => ['last_only'],
-        'Whitemane'              => ['last_only']
+        'Hammer'                 => ['last_only', 'terran', 'human'],
+        'Morales'                => ['last_only', 'terran', 'human'],
+        'Raynor'                 => ['last_only', 'terran', 'human'],
+        'Stukov'                 => ['last_only', 'terran', 'human'],
+        'Whitemane'              => ['last_only', 'human']
 
     ];
 
