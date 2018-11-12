@@ -21,10 +21,10 @@ You can add a Blizzard provider to Faker the same way you would add any other:
 
 ```php
 use Faker\Factory;
-use ChrGriffin\BlizzardFaker\Names;
+use ChrGriffin\BlizzardFaker\Names as BlizzardNames;
 
 $faker = Factory::create();
-$faker->addProvider(new Names($faker));
+$faker->addProvider(new BlizzardNames($faker));
 ```
 
 Once added, you can immediately make use of the provider methods as you normally would:
@@ -74,3 +74,69 @@ $name = $faker
     * `$type`: 'first', 'last', 'full', or `null` ('full')
     * `$gender`: 'male', 'female', or `null` (any)
     * `$franchise`: a camelcased string of a valid franchise, or `null` (any)
+    
+## Filters
+
+After directly calling a provider, you can apply various filters to it before retrieving your data.
+
+Note that not all filters are compatible with all providers, or with each other. Simply apply common sense and you should be fine.
+
+If a filter is applied to an incompatible provider or pre-existing set of filters, it will throw a `ChrGriffin\BlizzardFaker\Invalid{Filter}Exception`. For example, the following code:
+
+```php
+$faker
+    ->blizzardNames()
+    ->starcraft()
+    ->orc();
+```
+
+will throw a `ChrGriffin\BlizzardFaker\InvalidRaceException`.
+
+### Franchise Filter
+
+You can filter by the following franchises:
+
+* `->diablo()`
+* `->hearthstone()`
+* `->heroesOfTheStorm()`
+* `->starcraft()`
+* `->warcraft()`
+
+### Race Filter
+
+You can filter by the following races:
+
+* `->angel()`
+* `->bloodElf()`
+* `->demon()`
+* `->draenei()`
+* `->dragon()`
+* `->dwarf()`
+* `->elemental()`
+* `->forsaken()` _(has a lot of, though not 100%, overlap with `undead`)_
+* `->gnome()`
+* `->goblin()`
+* `->human()`
+* `->human()`
+* `->murloc()`
+* `->nephalem()`
+* `->nightElf()`
+* `->orc()`
+* `->pandaren()`
+* `->primalZerg()`
+* `->protoss()`
+* `->tauren()`
+* `->terran()`
+* `->troll()`
+* `->undead()` _(has a lot of, though not 100%, overlap with `forsaken`)_
+* `->worgen()`
+* `->xelNaga()`
+* `->zerg()`
+
+## Roadmap
+
+* include Overwatch franchise
+
+## Under the Hood
+
+...
