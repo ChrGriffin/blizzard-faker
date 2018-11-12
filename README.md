@@ -38,7 +38,8 @@ However, `blizzard-faker` offers additional filtering functionality:
 ```php
 $orcName = $faker
     ->blizzardNames() // this line prevents conflict with other Blizzard providers
-    ->orc();
+    ->orc()
+    ->name();
 ```
 
 These filters are additive and chainable, meaning if you want a human _or_ terran name from Diablo, Starcraft, _or_ Warcraft, you can write:
@@ -143,4 +144,13 @@ You can filter by the following races:
 
 ## Under the Hood
 
-...
+A cursory investigation of the `src` directory will reveal a distinctly different structure than Faker itself.
+
+In most cases, rather than an individual provider containing a few arrays and selecting an element at random, instead it calls upon multiple - sometimes nested - `DataProvider` classes to provide an array of random data. This is to facilitate the enormous amount of filtering that is possible without overly impacting performance; rather than filtering a single enormous array containing data spanning Blizzard's entire product line, instead we can select only a single `DataProvider` and then apply our filtering to _that_.
+
+In addition to the various ways data can be filtered, there are also built-in 'rules' for returning data for some of the providers:
+
+* `ChrGriffin\BlizzardFaker\Names`:
+    * __Lore Character Names__: Significant lore characters will not have their names broken up to be randomly assigned, instead, if returned, it will always be their full, unaltered name. For example, 'Garrosh' can never be assigned a random orcish surname - when retrieving full names, it will _always_ be 'Garrosh Hellscream' (or simply 'Garrosh' if requesting only first names).
+    * __Lore Character Last Names__: If a significant lore character has a last name also carried by other characters - for example, a family name, such as 'Cain', or tribe name, such as 'Bloodhoof' - then the last name can be randomly assigned like any other. If they are the only instance of such a name, then the above rule is observed.
+    * __Races Without Surnames__: There are some examples of races without surnames, such as Draenei or Protoss. In these cases, their individual name is considered a valid value for either full names _or_ first names: so you may see 'Tassadar' when requesting either first _or_ full names. In the case of significant lore characters with a relevant title, the character plus their title can be returned as the full name (for example, 'Hierarch Artanis', or 'Tyrael, Archangel of Justice'.)
