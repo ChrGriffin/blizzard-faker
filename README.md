@@ -61,16 +61,16 @@ $name = $faker
 #### Available Methods and Arguments
 
 * `blizzardNames() : ChrGriffin\BlizzardFaker\Names` _(prevents conflict with other providers)_
-* `firstName() : string`
+* `firstName($gender, $franchise) : string`
     * `$gender`: 'male', 'female', or `null` (any)
     * `$franchise`: a camelcased string of a valid franchise, or `null` (any)
-* `lastName() : string`
+* `lastName($gender, $franchise) : string`
     * `$gender`: 'male', 'female', or `null` (any)
     * `$franchise`: a camelcased string of a valid franchise, or `null` (any)
-* `fullName() : string`
+* `fullName($gender, $franchise) : string`
     * `$gender`: 'male', 'female', or `null` (any)
     * `$franchise`: a camelcased string of a valid franchise, or `null` (any)
-* `name() : string`
+* `name($type, $gender, $franchise) : string`
     * `$type`: 'first', 'last', 'full', or `null` ('full')
     * `$gender`: 'male', 'female', or `null` (any)
     * `$franchise`: a camelcased string of a valid franchise, or `null` (any)
@@ -136,6 +136,10 @@ You can filter by the following races:
 ## Roadmap
 
 * include Overwatch franchise
+* Monster names provider for Diablo
+* Class (ie Paladin, Warlock, etc.) provider for Diablo, Hearthstone, Warcraft
+* Ability provider for all franchises
+* Investigate feasibility of icon/image provider
 
 ## Under the Hood
 
