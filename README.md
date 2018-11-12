@@ -13,8 +13,6 @@ You can install via composer:
 composer install chrgriffin/blizzard-faker
 ```
 
-_except not yet because I haven't registered it yet lol_
-
 ## Usage
 
 You can add a Blizzard provider to Faker the same way you would add any other:
