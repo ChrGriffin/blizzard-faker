@@ -57,6 +57,10 @@ $name = $faker
 
 ### `ChrGriffin\BlizzardFaker\Names`
 
+#### Valid Franchises
+
+The Names provider is valid across all Blizzard franchises.
+
 #### Available Methods and Arguments
 
 * `blizzardNames() : ChrGriffin\BlizzardFaker\Names` _(prevents conflict with other providers)_
@@ -73,6 +77,19 @@ $name = $faker
     * `$type`: 'first', 'last', 'full', or `null` ('full')
     * `$gender`: 'male', 'female', or `null` (any)
     * `$franchise`: a camelcased string of a valid franchise, or `null` (any)
+    
+### `ChrGriffin\BlizzardFaker\Monsters`
+
+#### Valid Franchises
+
+The Monsters provider is only valid with the Diablo franchise.
+
+#### Available Methods and Arguments
+* `blizzardMonsters() : ChrGriffin\BlizzardFaker\Monsters` _(prevents conflict with other providers)_
+* `monster($franchise) : string`
+    * `$franchise`: a camelcased string of a valid franchise, or `null` (any)
+
+
     
 ## Filters
 
@@ -135,7 +152,6 @@ You can filter by the following races:
 ## Roadmap
 
 * include Overwatch franchise
-* Monster names provider for Diablo
 * Class (ie Paladin, Warlock, etc.) provider for Diablo, Hearthstone, Warcraft
 * Ability provider for all franchises
 * Investigate feasibility of icon/image provider
@@ -152,3 +168,6 @@ In addition to the various ways data can be filtered, there are also built-in 'r
     * __Lore Character Names__: Significant lore characters will not have their names broken up to be randomly assigned, instead, if returned, it will always be their full, unaltered name. For example, 'Garrosh' can never be assigned a random orcish surname - when retrieving full names, it will _always_ be 'Garrosh Hellscream' (or simply 'Garrosh' if requesting only first names).
     * __Lore Character Last Names__: If a significant lore character has a last name also carried by other characters - for example, a family name, such as 'Cain', or tribe name, such as 'Bloodhoof' - then the last name can be randomly assigned like any other. If they are the only instance of such a name, then the above rule is observed.
     * __Races Without Surnames__: There are some examples of races without surnames, such as Draenei or Protoss. In these cases, their individual name is considered a valid value for either full names _or_ first names: so you may see 'Tassadar' when requesting either first _or_ full names. In the case of significant lore characters with a relevant title, the character plus their title can be returned as the full name (for example, 'Hierarch Artanis', or 'Tyrael, Archangel of Justice'.)
+
+* `ChrGriffin\BlizzardFaker\Monsters`:
+    * __Monster Name Generation__: This provider follows the format of Diablo 2's random named monsters: a random prefix, suffix, and apellation will be combined to create a monster name.
